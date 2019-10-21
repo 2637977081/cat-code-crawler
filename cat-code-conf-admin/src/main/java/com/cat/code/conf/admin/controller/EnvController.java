@@ -1,10 +1,10 @@
 package com.cat.code.conf.admin.controller;
 
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.dao.XxlConfEnvDao;
-import com.cat.code.conf.core.dao.XxlConfNodeDao;
-import com.cat.code.conf.core.model.XxlConfEnv;
 import com.cat.code.conf.admin.controller.annotation.PermessionLimit;
+import com.cat.code.conf.admin.core.model.XxlConfEnv;
+import com.cat.code.conf.admin.core.util.ReturnT;
+import com.cat.code.conf.admin.dao.XxlConfEnvDao;
+import com.cat.code.conf.admin.dao.XxlConfNodeDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,7 +62,7 @@ public class EnvController {
 		}
 
 		int ret = xxlConfEnvDao.save(xxlConfEnv);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 	@RequestMapping("/update")
@@ -79,7 +79,7 @@ public class EnvController {
 		}
 
 		int ret = xxlConfEnvDao.update(xxlConfEnv);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 	@RequestMapping("/remove")
@@ -104,7 +104,7 @@ public class EnvController {
 		}
 
 		int ret = xxlConfEnvDao.delete(env);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 }

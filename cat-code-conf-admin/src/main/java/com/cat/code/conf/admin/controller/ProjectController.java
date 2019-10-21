@@ -1,10 +1,10 @@
 package com.cat.code.conf.admin.controller;
 
 import com.cat.code.conf.admin.controller.annotation.PermessionLimit;
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.dao.XxlConfNodeDao;
-import com.cat.code.conf.core.dao.XxlConfProjectDao;
-import com.cat.code.conf.core.model.XxlConfProject;
+import com.cat.code.conf.admin.core.model.XxlConfProject;
+import com.cat.code.conf.admin.core.util.ReturnT;
+import com.cat.code.conf.admin.dao.XxlConfNodeDao;
+import com.cat.code.conf.admin.dao.XxlConfProjectDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +61,7 @@ public class ProjectController {
 		}
 
 		int ret = xxlConfProjectDao.save(xxlConfProject);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 	@RequestMapping("/update")
@@ -78,7 +78,7 @@ public class ProjectController {
 		}
 
 		int ret = xxlConfProjectDao.update(xxlConfProject);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 	@RequestMapping("/remove")
@@ -102,7 +102,7 @@ public class ProjectController {
 		}
 
 		int ret = xxlConfProjectDao.delete(appname);
-		return (ret>0)? ReturnT.SUCCESS: ReturnT.FAIL;
+		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 
 }

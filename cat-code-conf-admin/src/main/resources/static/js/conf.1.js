@@ -26,7 +26,7 @@ $(function(){
 			data : function ( d ) {
 				var obj = {};
 				obj.appname = $('#appname').val();
-				obj.title = $('#title').val();
+				obj.key = $('#key').val();
 				obj.start = d.start;
 				obj.length = d.length;
 				return obj;
@@ -36,15 +36,14 @@ $(function(){
 		"ordering": false,
 		//"scrollX": true,	// X轴滚动条，取消自适应
 		"columns": [
-			{ "data": 'key', 'width': '12%', "visible" : true},
-			{ "data": 'title', 'width': '20%', "visible" : true},
+			{ "data": 'key', 'width': '20%', "visible" : true},
 			{
 				"data": 'value',
-				'width': '45%',
+				'width': '30%',
 				"visible" : true,
 				"render": function ( data, type, row ) {
 
-                    var temp = (row.value.length > 80)? row.value.substring(0, 80)+'...' : row.value;
+                    var temp = (row.value.length > 20)? row.value.substring(0, 20)+'...' : row.value;
                     return "<span title='"+ row.value +"'>"+ temp +"</span>";;
 
 					/*if (row.value == row.zkValue) {
@@ -70,10 +69,10 @@ $(function(){
 					}*/
 				}
 			},
-			{ "data": 'level', 'width': '8%', "visible" : true},
+			{ "data": 'title', 'width': '30%', "visible" : true},
 			{
 				"data": '操作',
-				'width': '15%' ,
+				'width': '20%' ,
 				"render": function ( data, type, row ) {
 					return function(){
 
@@ -92,17 +91,15 @@ $(function(){
                                 cacheValue +=
                                     '            <tr>\n' +
                                     '                <td style="width:27%;padding: 10px;" >操作时间</td>\n' +
-                                    '                <td style="width:14%;padding: 10px;" >操作人</td>\n' +
-                                    '                <td style="width:45%;padding: 10px;" >配置模板</td>\n' +
-                                    '                <td style="width:14%;padding: 10px;" >优先级</td>\n' +
+                                    '                <td style="width:23%;padding: 10px;" >操作人</td>\n' +
+                                    '                <td style="width:50%;padding: 10px;" >配置Value</td>\n' +
                                     '            </tr>\n';
                                 for (var i in row.logList) {
                                     cacheValue +=
                                         '            <tr>\n' +
                                         '                <td style="width:27%;padding: 10px;" >' + moment(new Date(row.logList[i].addtime)).format("YYYY-MM-DD HH:mm:ss") + '</td>\n' +
-                                        '                <td style="width:14%;padding: 10px;" >' + row.logList[i].optuser + '</td>\n' +
-                                        '                <td style="width:45%;padding: 10px;" >' + row.logList[i].value + '</td>\n' +
-                                        '                <td style="width:14%;padding: 10px;" >' + row.logList[i].level + '</td>\n' +
+                                        '                <td style="width:23%;padding: 10px;" >' + row.logList[i].optuser + '</td>\n' +
+                                        '                <td style="width:50%;padding: 10px;" >' + row.logList[i].value + '</td>\n' +
                                         '            </tr>\n';
                                 }
 
@@ -228,9 +225,6 @@ $(function(){
             },
             title : {
             	required : true
-            },
-            value : {
-            	required : true
             }
         }, 
         messages : {
@@ -239,10 +233,7 @@ $(function(){
                 rangelength : "配置Key长度限制为4~100"
             },
             title : {
-                required : '请输入配置网站'
-			},
-            value : {
-                required : '请输入配置模板'
+                required : '请输入配置描述'
 			}
         }, 
 		highlight : function(element) {  
@@ -261,7 +252,6 @@ $(function(){
                 'key' 		: ($("#addModal .form input[name='appname']").val() + '.' + $("#addModal .form input[name='key']").val() ),
                 'title' 	: $("#addModal .form input[name='title']").val() ,
                 'value' 	: $("#addModal .form textarea[name='value']").val() ,
-                'level' 	: $("#addModal .form select[name='level']").val() ,
 			}, function(data, status) {
                 if (data.code == 200) {
                     layer.open({
@@ -296,8 +286,7 @@ $(function(){
 		$("#updateModal .form input[name='appname']").val( row.appname );
         $("#updateModal .form input[name='title']").val( row.title );
 		$("#updateModal .form textarea[name='value']").val( row.value );
-		$("#updateModal .form select[name='level']").val( row.level );
-		
+
 		$('#updateModal').modal('show');
 	});
 	var updateModalValidate = $("#updateModal .form").validate({
@@ -312,9 +301,6 @@ $(function(){
             },
             title : {
                 required : true
-            },
-            value : {
-                required : true
             }
         },
         messages : {
@@ -323,10 +309,7 @@ $(function(){
                 rangelength : "配置Key长度限制为4~100"
             },
             title : {
-                required : '请输入配置网站'
-            },
-            value : {
-                required : '请输入配置模板'
+                required : '请输入配置描述'
             }
         },
         highlight : function(element) {
@@ -340,7 +323,6 @@ $(function(){
             element.parent('div').append(error);  
         },
         submitHandler : function(form) {
-        	console.log($("#updateModal .form").serialize());
     		$.post(base_url + "/conf/update", $("#updateModal .form").serialize(), function(data, status) {
                 if (data.code == 200) {
                     layer.open({

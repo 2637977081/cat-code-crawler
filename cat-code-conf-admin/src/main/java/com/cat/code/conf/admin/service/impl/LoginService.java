@@ -1,13 +1,13 @@
 package com.cat.code.conf.admin.service.impl;
 
-import com.cat.code.conf.admin.util.CookieUtil;
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.dao.XxlConfUserDao;
-import com.cat.code.conf.core.model.XxlConfUser;
-import com.cat.code.conf.core.util.JacksonUtil;
+
+import com.cat.code.conf.admin.core.model.XxlConfUser;
+import com.cat.code.conf.admin.core.util.CookieUtil;
+import com.cat.code.conf.admin.core.util.JacksonUtil;
+import com.cat.code.conf.admin.core.util.ReturnT;
+import com.cat.code.conf.admin.dao.XxlConfUserDao;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.DigestUtils;
-
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

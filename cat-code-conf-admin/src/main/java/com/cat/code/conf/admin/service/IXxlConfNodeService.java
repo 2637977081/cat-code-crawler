@@ -1,12 +1,9 @@
 package com.cat.code.conf.admin.service;
 
-
-
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.model.XxlConfNode;
-import com.cat.code.conf.core.model.XxlConfUser;
+import com.cat.code.conf.admin.core.model.XxlConfNode;
+import com.cat.code.conf.admin.core.model.XxlConfUser;
+import com.cat.code.conf.admin.core.util.ReturnT;
 import org.springframework.web.context.request.async.DeferredResult;
-
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +18,7 @@ public interface IXxlConfNodeService {
 	public Map<String,Object> pageList(int offset,
                                        int pagesize,
                                        String appname,
-                                       String title,
+                                       String key,
                                        XxlConfUser loginUser,
                                        String loginEnv);
 

@@ -17,7 +17,12 @@
 
     <dependencies>
 
-
+        <!-- xxl-job-core -->
+        <dependency>
+            <groupId>com.cat.code</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>${xxl-job.vaersion}</version>
+        </dependency>
     </dependencies>
 
     <build>

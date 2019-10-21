@@ -2,8 +2,8 @@ package com.cat.code.conf.admin.controller;
 
 
 import com.cat.code.conf.admin.controller.annotation.PermessionLimit;
+import com.cat.code.conf.admin.core.util.ReturnT;
 import com.cat.code.conf.admin.service.impl.LoginService;
-import com.cat.code.conf.admin.util.ReturnT;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model, HttpServletRequest request) {
-        return "redirect:/wconf";
+        return "redirect:/conf";
     }
 
     @RequestMapping("/toLogin")

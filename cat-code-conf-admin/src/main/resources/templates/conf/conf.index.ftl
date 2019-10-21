@@ -45,8 +45,8 @@
                     </div>
                     <div class="col-xs-4">
                         <div class="input-group">
-                            <span class="input-group-addon">网站</span>
-                            <input type="text" class="form-control" id="title" autocomplete="on" >
+                            <span class="input-group-addon">KEY</span>
+                            <input type="text" class="form-control" id="key" autocomplete="on" >
                         </div>
                     </div>
                     <div class="col-xs-1">
@@ -67,9 +67,8 @@
 		                    <thead>
 		                      	<tr>
                                     <th>KEY</th>
-			                        <th>网站</th>
-			                        <th>配置模板</th>
-			                        <th>优先级</th>
+			                        <th>VALUE</th>
+			                        <th>描述</th>
 			                        <th>操作</th>
 		                      	</tr>
 							</thead>
@@ -117,31 +116,15 @@
                             </div>
 						</div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">网站</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="title" placeholder="请输入网站" maxlength="100" ></div>
+                            <label for="lastname" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="title" placeholder="请输入配置描述" maxlength="100" ></div>
                         </div>
 						<div class="form-group">
-							<label for="lastname" class="col-sm-2 control-label">模板</label>
+							<label for="lastname" class="col-sm-2 control-label">VALUE</label>
 							<div class="col-sm-10">
-                                <textarea class="textarea" name="value" maxlength="300000" placeholder="请输入配置模板，以JSON格式！" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea class="textarea" name="value" maxlength="2000" placeholder="请输入配置Value" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 							</div>
 						</div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">优先级</label>
-                            <div class="col-sm-10">
-                            	<!--<input type="text" class="form-control" name="title" placeholder="请输入网站" maxlength="100" >-->
-                            	<select class="form-control" name="level" maxlength="100" >
-				                    <option value="1">1</option>
-				                    <option value="2">2</option>
-				                    <option value="3">3</option>
-				                    <option value="4">4</option>
-				                    <option value="5" selected="selected">5</option>
-				                    <option value="6">6</option>
-				                    <option value="7">7</option>
-				                </select>
-                            </div>
-                        </div>						
-						
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" class="btn btn-primary"  >保存</button>
@@ -174,30 +157,15 @@
                             <div class="col-sm-10"><input type="text" class="form-control" name="key" placeholder="请输入配置Key" maxlength="100" readonly ></div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">网站</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" name="title" placeholder="请输入网站" maxlength="100" readonly ></div>
+                            <label for="lastname" class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="title" placeholder="请输入配置描述" maxlength="100" ></div>
                         </div>
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">模板</label>
+                            <label for="lastname" class="col-sm-2 control-label">VALUE</label>
                             <div class="col-sm-10">
-                                <textarea class="textarea" name="value" maxlength="300000" placeholder="请输入配置模板,以JSON格式！" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea class="textarea" name="value" maxlength="2000" placeholder="请输入配置Value" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">优先级</label>
-                            <div class="col-sm-10">
-                            	<!--<input type="text" class="form-control" name="title" placeholder="请输入网站" maxlength="100" >-->
-                            	<select class="form-control" name="level" maxlength="100" >
-				                    <option value="1">1</option>
-				                    <option value="2">2</option>
-				                    <option value="3">3</option>
-				                    <option value="4">4</option>
-				                    <option value="5">5</option>
-				                    <option value="6">6</option>
-				                    <option value="7">7</option>
-				                </select>
-                            </div>
-                        </div>	
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" class="btn btn-primary"  >更新</button>

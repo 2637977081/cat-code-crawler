@@ -1,13 +1,11 @@
 package com.cat.code.conf.admin.service.impl;
 
+import com.cat.code.conf.admin.core.model.*;
+import com.cat.code.conf.admin.core.util.RegexUtil;
+import com.cat.code.conf.admin.core.util.ReturnT;
+import com.cat.code.conf.admin.dao.*;
 import com.cat.code.conf.admin.service.IXxlConfNodeService;
-import com.cat.code.conf.admin.util.RegexUtil;
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.dao.*;
-import com.cat.code.conf.core.model.*;
-import com.cat.code.conf.core.parser.ExTParserResult;
-import com.cat.code.conf.core.parser.ExTemplateParser;
-import com.cat.code.conf.core.util.PropUtil;
+import com.xxl.conf.core.util.PropUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.async.DeferredResult;
-
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -48,8 +45,7 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 	private XxlConfEnvDao xxlConfEnvDao;
 	@Resource
 	private XxlConfNodeMsgDao xxlConfNodeMsgDao;
-	@Resource
-	private XxlWConfNodeDao xxlWConfNodeDao;
+
 
 	@Value("${xxl.conf.confdata.filepath}")
 	private String confDataFilePath;
@@ -74,7 +70,7 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 	public Map<String,Object> pageList(int offset,
 									   int pagesize,
 									   String appname,
-									   String title,
+									   String key,
 									   XxlConfUser loginUser,
 									   String loginEnv) {
 
@@ -89,8 +85,8 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 		}
 
 		// xxlConfNode in mysql
-		List<XxlConfNode> data = xxlConfNodeDao.pageList(offset, pagesize, loginEnv, appname, title);
-		int list_count = xxlConfNodeDao.pageListCount(offset, pagesize, loginEnv, appname, title);
+		List<XxlConfNode> data = xxlConfNodeDao.pageList(offset, pagesize, loginEnv, appname, key);
+		int list_count = xxlConfNodeDao.pageListCount(offset, pagesize, loginEnv, appname, key);
 
 		// fill value in zk
 		/*if (CollectionUtils.isNotEmpty(data)) {
@@ -189,26 +185,12 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 
 		// valid title
 		if (StringUtils.isBlank(xxlConfNode.getTitle())) {
-			return new ReturnT<String>(500, "配置网站不可为空");
-		} else {
-			XxlWConfNode xxlWConfNode = xxlWConfNodeDao.loadBySiteName(xxlConfNode.getEnv(), xxlConfNode.getTitle());
-			if (xxlWConfNode == null) {
-				return new ReturnT<String>(500, "网站：“"+xxlConfNode.getTitle()+"” 不存在，请先配置网站！");
-			}
+			return new ReturnT<String>(500, "配置描述不可为空");
 		}
 
 		// value force null to ""
 		if (xxlConfNode.getValue() == null) {
 			xxlConfNode.setValue("");
-		} else {
-//			if (!JacksonUtil.jsonValid(xxlConfNode.getValue())) {
-//				return new ReturnT<String>(500, "配置模板格式必须为JSON格式！");
-//			}
-			ExTParserResult exr = ExTemplateParser.parse(xxlConfNode.getValue());
-			if (exr.getStatus() != 0) {
-				return new ReturnT<String>(500, exr.getMessage());
-			}
-			
 		}
 
 		// add node
@@ -219,11 +201,9 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 		XxlConfNodeLog nodeLog = new XxlConfNodeLog();
 		nodeLog.setEnv(xxlConfNode.getEnv());
 		nodeLog.setKey(xxlConfNode.getKey());
-		nodeLog.setTitle(xxlConfNode.getTitle());
+		nodeLog.setTitle(xxlConfNode.getTitle() + "(配置新增)" );
 		nodeLog.setValue(xxlConfNode.getValue());
-		nodeLog.setLevel(xxlConfNode.getLevel());
 		nodeLog.setOptuser(loginUser.getUsername());
-		
 		xxlConfNodeLogDao.add(nodeLog);
 
 		// conf msg
@@ -250,38 +230,30 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 		}
 
 		if (StringUtils.isBlank(xxlConfNode.getTitle())) {
-			return new ReturnT<String>(500, "配置网站不可为空");
+			return new ReturnT<String>(500, "配置描述不可为空");
 		}
 
 		// value force null to ""
 		if (xxlConfNode.getValue() == null) {
 			xxlConfNode.setValue("");
-		} else {
-//			if (!JacksonUtil.jsonValid(xxlConfNode.getValue())) {
-//				return new ReturnT<String>(500, "配置模板格式必须为JSON格式！");
-//			}
-			ExTParserResult exr = ExTemplateParser.parse(xxlConfNode.getValue());
-			if (exr.getStatus() != 0) {
-				return new ReturnT<String>(500, exr.getMessage());
-			}
 		}
 
 		// update conf
 		//xxlConfZKManager.set(xxlConfNode.getEnv(), xxlConfNode.getKey(), xxlConfNode.getValue());
+
 		existNode.setTitle(xxlConfNode.getTitle());
 		existNode.setValue(xxlConfNode.getValue());
-		existNode.setLevel(xxlConfNode.getLevel());
 		int ret = xxlConfNodeDao.update(existNode);
 		if (ret < 1) {
 			return ReturnT.FAIL;
 		}
+
 		// node log
 		XxlConfNodeLog nodeLog = new XxlConfNodeLog();
 		nodeLog.setEnv(existNode.getEnv());
 		nodeLog.setKey(existNode.getKey());
-		nodeLog.setTitle(existNode.getTitle());
+		nodeLog.setTitle(existNode.getTitle() + "(配置更新)" );
 		nodeLog.setValue(existNode.getValue());
-		nodeLog.setLevel(existNode.getLevel());
 		nodeLog.setOptuser(loginUser.getUsername());
 		xxlConfNodeLogDao.add(nodeLog);
 		xxlConfNodeLogDao.deleteTimeout(existNode.getEnv(), existNode.getKey(), 10);
@@ -365,30 +337,37 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 			return new ReturnT<>(ReturnT.FAIL.getCode(), "env Invalid.");
 		}
 		if (keys==null || keys.size()==0) {
-			return new ReturnT<>(ReturnT.FAIL.getCode(), "keys Empty.");
+			return new ReturnT<>(ReturnT.FAIL.getCode(), "keys Invalid.");
 		}
+		/*for (String key: keys) {
+			if (key==null || key.trim().length()<4 || key.trim().length()>100) {
+				return new ReturnT<>(ReturnT.FAIL.getCode(), "Key Invalid[4~100]");
+			}
+			if (!RegexUtil.matches(RegexUtil.abc_number_line_point_pattern, key)) {
+				return new ReturnT<>(ReturnT.FAIL.getCode(), "Key format Invalid");
+			}
+		}*/
 
-		// find key value
+		// result
 		Map<String, String> result = new HashMap<String, String>();
 		for (String key: keys) {
 
-			// valid key
+			// get val
+			String value = null;
 			if (key==null || key.trim().length()<4 || key.trim().length()>100
 					|| !RegexUtil.matches(RegexUtil.abc_number_line_point_pattern, key) ) {
-				continue;
+				// invalid key, pass
+			} else {
+				value = getFileConfData(env, key);
 			}
 
-			// get value
-			String value = getFileConfData(env, key);
+			// parse null
 			if (value == null) {
-			    continue;
-            }
+				value = "";
+			}
 
-            // put
-            result.put(key, value);
-		}
-		if (result.size() == 0) {
-			return new ReturnT<>(ReturnT.FAIL.getCode(), "keys Invalid.");
+			// put
+			result.put(key, value);
 		}
 
 		return new ReturnT<Map<String, String>>(result);
@@ -398,7 +377,7 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 	public DeferredResult<ReturnT<String>> monitor(String accessToken, String env, List<String> keys) {
 
 		// init
-		DeferredResult deferredResult = new DeferredResult(confBeatTime * 1000L, new ReturnT<>(ReturnT.FAIL.getCode(), "Monitor timeout."));
+		DeferredResult deferredResult = new DeferredResult(confBeatTime * 1000L, new ReturnT<>(ReturnT.SUCCESS_CODE, "Monitor timeout, no key updated."));
 
 		// valid
 		if (this.accessToken!=null && this.accessToken.trim().length()>0 && !this.accessToken.equals(accessToken)) {
@@ -410,22 +389,31 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 			return deferredResult;
 		}
 		if (keys==null || keys.size()==0) {
-			deferredResult.setResult(new ReturnT<>(ReturnT.FAIL.getCode(), "keys Empty."));
+			deferredResult.setResult(new ReturnT<>(ReturnT.FAIL.getCode(), "keys Invalid."));
 			return deferredResult;
 		}
+		/*for (String key: keys) {
+			if (key==null || key.trim().length()<4 || key.trim().length()>100) {
+				deferredResult.setResult(new ReturnT<>(ReturnT.FAIL.getCode(), "Key Invalid[4~100]"));
+				return deferredResult;
+			}
+			if (!RegexUtil.matches(RegexUtil.abc_number_line_point_pattern, key)) {
+				deferredResult.setResult(new ReturnT<>(ReturnT.FAIL.getCode(), "Key format Invalid"));
+				return deferredResult;
+			}
+		}*/
 
 		// monitor by client
-		boolean monitorKey = false;
 		for (String key: keys) {
 
-		    // valid key
-            if (key==null || key.trim().length()<4 || key.trim().length()>100
-                    || !RegexUtil.matches(RegexUtil.abc_number_line_point_pattern, key) ) {
-                continue;
-            }
-			monitorKey = true;
 
-            // monitor key
+			// invalid key, pass
+			if (key==null || key.trim().length()<4 || key.trim().length()>100
+					|| !RegexUtil.matches(RegexUtil.abc_number_line_point_pattern, key) ) {
+				continue;
+			}
+
+			// monitor each key
 			String fileName = parseConfDataFileName(env, key);
 
 			List<DeferredResult> deferredResultList = confDeferredResultMap.get(fileName);
@@ -437,27 +425,20 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 			deferredResultList.add(deferredResult);
 		}
 
-		if (!monitorKey) {
-			deferredResult.setResult(new ReturnT<>(ReturnT.FAIL.getCode(), "keys Invalid."));
-			return deferredResult;
-		}
-
 		return deferredResult;
 	}
 
-	
-	//modify by sunqing
 
 	// ---------------------- start stop ----------------------
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-//		startThead();
+		startThead();
 	}
 
 	@Override
 	public void destroy() throws Exception {
-//		stopThread();
+		stopThread();
 	}
 
 
@@ -523,6 +504,19 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 			@Override
 			public void run() {
 				while (!executorStoped) {
+
+					// align to beattime
+					try {
+						long sleepSecond = confBeatTime - (System.currentTimeMillis()/1000)%confBeatTime;
+						if (sleepSecond>0 && sleepSecond<confBeatTime) {
+							TimeUnit.SECONDS.sleep(sleepSecond);
+						}
+					} catch (Exception e) {
+						if (!executorStoped) {
+							logger.error(e.getMessage(), e);
+						}
+					}
+
 					try {
 
 						// sync registry-data, db + file
@@ -550,7 +544,7 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 						// clean old registry-data file
 						cleanFileConfData(confDataFileList);
 
-                        logger.info(">>>>>>>>>>> xxl-conf, sync totel conf data success, sync conf count = {}", confDataFileList.size());
+                        logger.debug(">>>>>>>>>>> xxl-conf, sync totel conf data success, sync conf count = {}", confDataFileList.size());
 					} catch (Exception e) {
 						if (!executorStoped) {
 							logger.error(e.getMessage(), e);
@@ -633,7 +627,7 @@ public class XxlConfNodeServiceImpl implements IXxlConfNodeService, Initializing
 		if (deferredResultList != null) {
 			confDeferredResultMap.remove(confFileName);
 			for (DeferredResult deferredResult: deferredResultList) {
-				deferredResult.setResult(new ReturnT<>(501, "Monitor key update."));
+				deferredResult.setResult(new ReturnT<>(ReturnT.SUCCESS_CODE, "Monitor key update."));
 			}
 		}
 

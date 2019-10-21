@@ -50,27 +50,6 @@ CREATE TABLE `xxl_conf_node_msg` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `xxl_wconf_node`  (
-  `env` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `key` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `appname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `sitename` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网站名',
-  `domain` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '域名',
-  `attributes` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '属性',
-  PRIMARY KEY (`env`, `key`) USING BTREE,
-  INDEX `env_domain_idx`(`env`, `domain`) USING BTREE,
-  INDEX `env_sitename_idx`(`env`, `sitename`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
-CREATE TABLE `xxl_wconf_node_log`  (
-  `env` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `key` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `sitename` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `domain` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `attributes` varchar(3000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `addtime` datetime NOT NULL COMMENT '操作时间',
-  `optuser` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '操作人'
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 INSERT INTO `xxl_conf_env` VALUES ('test', '测试环境', 1), ('ppe', '预发布环境', 2), ('product', '生产环境', 3);
 INSERT INTO `xxl_conf_project` VALUES ('default', '示例项目');

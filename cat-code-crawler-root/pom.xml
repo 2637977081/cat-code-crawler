@@ -47,6 +47,7 @@
         <!--xxl -->
         <xxl-rpc.version>1.4.1</xxl-rpc.version>
         <xxl-job.vaersion>2.1.0</xxl-job.vaersion>
+        <xxl-conf.version></xxl-conf.version>
         <xxl-crawler.version>1.2.2</xxl-crawler.version>
 
         <cat-code-conf.version>1.0-SNAPSHOT</cat-code-conf.version>
@@ -114,29 +115,12 @@
             <version>${mysql-connector-java.version}</version>
         </dependency>
 
-        <!-- xxl-job-core -->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>${xxl-job.vaersion}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

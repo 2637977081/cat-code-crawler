@@ -1,8 +1,8 @@
 package com.cat.code.conf.admin.controller.interceptor;
 
-import com.cat.code.conf.admin.service.impl.LoginService;
-import com.cat.code.conf.core.model.XxlConfUser;
 import com.cat.code.conf.admin.controller.annotation.PermessionLimit;
+import com.cat.code.conf.admin.core.model.XxlConfUser;
+import com.cat.code.conf.admin.service.impl.LoginService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

@@ -1,15 +1,15 @@
 package com.cat.code.conf.admin.controller;
 
 import com.cat.code.conf.admin.controller.annotation.PermessionLimit;
+import com.cat.code.conf.admin.core.model.XxlConfNode;
+import com.cat.code.conf.admin.core.model.XxlConfProject;
+import com.cat.code.conf.admin.core.model.XxlConfUser;
+import com.cat.code.conf.admin.core.util.JacksonUtil;
+import com.cat.code.conf.admin.core.util.ReturnT;
+import com.cat.code.conf.admin.dao.XxlConfProjectDao;
 import com.cat.code.conf.admin.service.IXxlConfNodeService;
 import com.cat.code.conf.admin.service.impl.LoginService;
-import com.cat.code.conf.admin.util.ReturnT;
-import com.cat.code.conf.core.dao.XxlConfProjectDao;
-import com.cat.code.conf.core.model.XxlConfNode;
-import com.cat.code.conf.core.model.XxlConfParamVO;
-import com.cat.code.conf.core.model.XxlConfProject;
-import com.cat.code.conf.core.model.XxlConfUser;
-import com.cat.code.conf.core.util.JacksonUtil;
+import com.xxl.conf.core.model.XxlConfParamVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,12 +73,12 @@ public class ConfController {
 										@RequestParam(required = false, defaultValue = "0") int start,
 										@RequestParam(required = false, defaultValue = "10") int length,
 										String appname,
-										String title) {
+										String key) {
 
 		XxlConfUser xxlConfUser = (XxlConfUser) request.getAttribute(LoginService.LOGIN_IDENTITY);
 		String loginEnv = (String) request.getAttribute(CURRENT_ENV);
 
-		return xxlConfNodeService.pageList(start, length, appname, title, xxlConfUser, loginEnv);
+		return xxlConfNodeService.pageList(start, length, appname, key, xxlConfUser, loginEnv);
 	}
 
 	/**
@@ -125,6 +125,7 @@ public class ConfController {
 
 		// fill env
 		xxlConfNode.setEnv(loginEnv);
+
 		return xxlConfNodeService.update(xxlConfNode, xxlConfUser, loginEnv);
 	}
 
@@ -203,7 +204,7 @@ public class ConfController {
 	 * 说明：long-polling 接口，主动阻塞一段时间（默认30s）；直至阻塞超时或配置信息变动时响应；
 	 *
 	 * ------
-	 * 地址格式：{配置中心跟地址}/find
+	 * 地址格式：{配置中心跟地址}/monitor
 	 *
 	 * 请求参数说明：
 	 *  1、accessToken：请求令牌；

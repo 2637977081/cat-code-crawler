@@ -142,18 +142,11 @@
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
 				<li class="header">导航</li>
-				<!--<li class="nav-click <#if pageName == "conf">active</#if>" ><a href="${request.contextPath}/conf"><i class="fa fa-circle-o text-aqua"></i><span>配置管理</span></a></li>-->
-				<li class="treeview <#if pageName == "wconf" || pageName == "conf" >active</#if>" >
-					<a href="#"><i class="fa fa-circle-o text-aqua"></i><span>配置管理</span> <i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li class="nav-click <#if pageName == "wconf">active</#if>" ><a href="${request.contextPath}/wconf"><i class="fa fa-cog text-aqua"></i><span>网站配置</span></a></li>
-						<li class="nav-click <#if pageName == "conf">active</#if>" ><a href="${request.contextPath}/conf"><i class="fa fa-cog text-aqua"></i><span>模板配置</span></a></li>
-					</ul>
-				</li>
+				<li class="nav-click <#if pageName == "conf">active</#if>" ><a href="${request.contextPath}/conf"><i class="fa fa-circle-o text-aqua"></i><span>配置管理</span></a></li>
 				<#if Request["XXL_CONF_LOGIN_IDENTITY"].permission == 1>
+                    <li class="nav-click <#if pageName == "user">active</#if>" ><a href="${request.contextPath}/user"><i class="fa fa-circle-o text-green"></i><span>用户管理</span></a></li>
 					<li class="nav-click <#if pageName == "project">active</#if>" ><a href="${request.contextPath}/project"><i class="fa fa-circle-o text-yellow"></i><span>项目管理</span></a></li>
 					<li class="nav-click <#if pageName == "env">active</#if>" ><a href="${request.contextPath}/env"><i class="fa fa-circle-o text-blue"></i><span>环境管理</span></a></li>
-                    <li class="nav-click <#if pageName == "user">active</#if>" ><a href="${request.contextPath}/user"><i class="fa fa-circle-o text-green"></i><span>用户管理</span></a></li>
 				</#if>
                 <li class="nav-click <#if pageName == "help">active</#if>" ><a href="${request.contextPath}/help"><i class="fa fa-circle-o text-gray"></i><span>使用教程</span></a></li>
 			</ul>
@@ -164,14 +157,13 @@
 
 <#macro commonFooter >
 	<footer class="main-footer">
-		 <!--Powered by <b>XXL-CONF</b> 1.6.1-->
-		 Powered by <b>GOLAXY</b> 1.6.1
+		Powered by <b>XXL-CONF</b> 1.6.2-SNAPSHOT
 		<div class="pull-right hidden-xs">
 			<strong>Copyright &copy; 2015-${.now?string('yyyy')} &nbsp;
-                <!--<a href="http://www.xuxueli.com/" target="_blank" >xuxueli</a>
+                <a href="http://www.xuxueli.com/" target="_blank" >xuxueli</a>
                 &nbsp;
                 <a href="https://github.com/xuxueli/xxl-conf" target="_blank" >github</a>
-			</strong>--><!-- All rights reserved. -->
+			</strong><!-- All rights reserved. -->
 		</div>
 	</footer>
 </#macro>
