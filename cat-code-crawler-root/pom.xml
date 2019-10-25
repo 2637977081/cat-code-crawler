@@ -47,7 +47,7 @@
         <!--xxl -->
         <xxl-rpc.version>1.4.1</xxl-rpc.version>
         <xxl-job.vaersion>2.1.0</xxl-job.vaersion>
-        <xxl-conf.version></xxl-conf.version>
+        <xxl-conf.version>1.6.2</xxl-conf.version>
         <xxl-crawler.version>1.2.2</xxl-crawler.version>
 
         <cat-code-conf.version>1.0-SNAPSHOT</cat-code-conf.version>
@@ -107,12 +107,6 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis-spring-boot-starter.version}</version>
-        </dependency>
-        <!-- mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-java.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
