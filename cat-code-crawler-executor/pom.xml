@@ -30,7 +30,7 @@
 
         <dependency>
             <groupId>com.cat.code</groupId>
-            <artifactId>cat-code-conf-code</artifactId>
+            <artifactId>cat-code-conf-core</artifactId>
             <version>${cat-code-conf.version}</version>
         </dependency>
 
