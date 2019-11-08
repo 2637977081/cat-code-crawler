@@ -54,7 +54,8 @@ public class TestJobHandler extends IJobHandler {
         XxlCrawler crawler = new XxlCrawler.Builder()
 //                .setUrls("https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gb18030&word=%B0%D9%B6%C8%CD%BC%C6%AC%C3%C0%C5%AE&fr=ala&ala=1&alatpl=adress&pos=0&hs=2&xthttps=111111")
                 .setUrls("https://www.bbilibili.com/")
-                .setAllowSpread(false)
+//                .setUrls("https://www.pzhan.com/")
+                .setAllowSpread(true)
                 .setHeaderMap(headerMap)
                 .setPageLoader(new HtmlUnitPageLoader())        // HtmlUnit 版本 PageLoader：支持 JS 渲染
                 .setPageParser(new PageParser() {
