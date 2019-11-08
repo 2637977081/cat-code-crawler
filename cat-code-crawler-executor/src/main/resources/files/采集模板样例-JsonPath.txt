@@ -1,0 +1,66 @@
+{
+	"bn": "百度视频-电影",
+	"attributes":[{"name":"1","value":"aaa"},{"name":"12","value":"3333"},{"name":"13","value":"35"}],
+	"entryURLs": ["http://v.baidu.com/commonapi/movie2level/?filter=false&type=%E5%8A%A8%E4%BD%9C&area=&actor=&start=&complete=%E6%AD%A3%E7%89%87&order=hot&pn=[#pn#]&rating=&prop=&channel=movie"],
+	"pn": [5],
+	"mapping": {
+		"mtype": "net",
+		"method": "jsonpath",
+		"rows": [0,29],
+		"fields": [{
+			"key": "title",
+			"type": "string",
+			"value": ["videoshow.videos[%d].title"],
+			"required": true
+		},
+		{
+			"key": "intro",
+			"value": ["videoshow.videos[%d].intro"],
+			"required": true
+		},
+		{
+			"key":"actors",
+			"value":["videoshow.videos[%d].actor.[*].name"],
+			"required":true
+		},
+		{
+			"key": "url",
+			"type": "string",
+			"value": ["videoshow.videos[%d].url"],
+			"required": true,
+			"mappingType":"unfold",
+			"mapping":{
+				"mtype": "net",
+				"method": "xpath",
+				"rows": [0,0],
+				"fields": [{
+					"key": "director",
+					"value": ["//div[@class='intro ']/div[1]/ul/li[@static]/a/text()","//div[@class='panel-one']/dl[1]/dd/a/text()"],
+					"required": true
+				},{
+					"key": "actors",
+					"value": ["//div[@class='intro ']/ul[@class='intro-detail clearfix']/li//a/text()","//div[@class='intro ']/div[@class='work_intro_title']/ul[@class='intro-detail']//li//span//a[@class='intro-role']/text()"],
+					"required": true,
+					"multivalue": true
+				},{
+					"key": "locations",
+					"value": ["//div[@class='intro ']/div[1]/ul//li/a[contains(@class,'intro-area')]/text()","//div[@class='panel-one']/dl[2]/dd/text()","//div[@class='intro ']/div[1]/ul//li/span[contains(@class,'intro-area')]/text()"],
+					"required": true
+				},{
+					"key": "url",
+					"value": ["//div[@class='intro ']/div[@id='playButtons']/a/@abs:href","//div[@class='intro ']/a[@id='j-play-btn']/@abs:href"],
+					"required": true
+				}]
+			}
+		}]
+	},
+	"strategy": {
+		"key": "url,title",
+		"algorithm": "md5",
+		"duplicates": "no",
+		"expired":2678400
+	},
+	"storage": {
+		"ds":{"dtype":"mongodb","db":"crawler_test","tb":"videos"}
+	}
+}

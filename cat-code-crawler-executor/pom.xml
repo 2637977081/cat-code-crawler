@@ -22,17 +22,5 @@
             <version>${xxl-job.vaersion}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.cat.code</groupId>
-            <artifactId>xxl-conf-core</artifactId>
-            <version>${xxl-conf.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.cat.code</groupId>
-            <artifactId>cat-code-conf-core</artifactId>
-            <version>${cat-code-conf.version}</version>
-        </dependency>
-
     </dependencies>
 </project>

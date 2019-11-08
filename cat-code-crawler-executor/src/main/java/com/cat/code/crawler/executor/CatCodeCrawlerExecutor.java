@@ -3,6 +3,8 @@ package com.cat.code.crawler.executor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -11,9 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @Email: lvgang@golaxy.cn
  * @Description: todo
  */
-@SpringBootApplication
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @ComponentScan(basePackages="com.cat.code.*")
-@MapperScan("com.cat.code.conf.core.dao")
 public class CatCodeCrawlerExecutor {
     public static void main(String[] args){
         SpringApplication.run(CatCodeCrawlerExecutor.class);

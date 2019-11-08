@@ -1,0 +1,46 @@
+{
+	"bn": "新浪新闻-资讯",
+	"attributes":[{"name":"1","value":"aaa"},{"name":"12","value":"3333"},{"name":"13","value":"35"}],
+	"entryURLs": ["http://xxgk.sdein.gov.cn/xxgkml/hbzfjc/"],
+	"pn": [0],
+	"mapping": {
+		"mtype": "net",
+		"method": "regex",
+		"rows": [0,0],
+		"fields": [{
+			"key": "title",
+			"type": "string",
+			"value": ["<table width=\"96%\" border=\"0\" align=\"center\".*?</table></td>"],
+			"required": true,
+			"mappingType":"unfold",
+			"mapping":{
+				"method": "regex",
+				"rows": [1,80],
+				"fields": [{
+					"key": "url",
+					"value": ["<td width=\"76%\"><a href=\"(.*?)\":@abs:href"],
+					"required": true
+				},{
+					"key": "title",
+					"value": ["title=\".*?\">(.*?)</a></td>"],
+					"required": true
+				},{
+					"key": "time",
+					"type": "datetime",
+					"format": "YYYY-MM-dd",
+					"value": ["<td width=\"19%\" align=\"center\" class=\"date14\">(.*?)</td>"],
+					"required": true,
+					"default": "now"
+				}]
+			}
+		}]
+	},
+	"strategy": {
+		"key": "url,title",
+		"algorithm": "md5",
+		"duplicates": "no"
+	},
+	"storage": {
+		"ds":{"dtype":"console"}
+	}
+}
