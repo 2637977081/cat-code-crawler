@@ -149,6 +149,7 @@ public class CrawlerThread implements Runnable {
      */
     private boolean processNonPage(PageRequest pageRequest){
         NonPageParser nonPageParser = (NonPageParser) crawler.getRunConf().getPageParser();
+
         String pagesource = JsoupUtil.loadPageSource(pageRequest);
         if (pagesource == null) {
             return false;

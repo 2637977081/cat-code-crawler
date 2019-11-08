@@ -3,7 +3,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.xuxueli/xxl-crawler/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.xuxueli/xxl-crawler/)
 [![GitHub release](https://img.shields.io/github/release/xuxueli/xxl-crawler.svg)](https://github.com/xuxueli/xxl-crawler/releases)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![donate](https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square)](http://www.xuxueli.com/page/donate.html)
+[![donate](https://img.shields.io/badge/%24-donate-ff69b4.svg?style=flat-square)](https://www.xuxueli.com/page/donate.html)
 
 ## 一、简介
 
@@ -35,7 +35,7 @@ XXL-CRAWLER 是一个分布式爬虫框架。一行代码开发一个分布式�
 
 #### 文档地址
 
-- [中文文档](http://www.xuxueli.com/xxl-crawler/)
+- [中文文档](https://www.xuxueli.com/xxl-crawler/)
 
 #### 源码仓库地址
 
@@ -46,7 +46,7 @@ XXL-CRAWLER 是一个分布式爬虫框架。一行代码开发一个分布式�
 
 
 #### 技术交流
-- [社区交流](http://www.xuxueli.com/page/community.html)
+- [社区交流](https://www.xuxueli.com/page/community.html)
 
 ### 1.4 环境
 - JDK：1.7+
@@ -125,7 +125,7 @@ crawler.start(true);
 
 ### 架构图
 
-![输入图片说明](https://raw.githubusercontent.com/xuxueli/xxl-crawler/master/doc/images/img01.png "在这里输入图片标题")
+![输入图片说明](https://www.xuxueli.com/doc/static/xxl-crawler/images/img01.png "在这里输入图片标题")
 
 ### 3.1 功能定位
 
@@ -281,6 +281,10 @@ public abstract int getUrlNum(); | 获取待采集URL数量；
 - 3、增强JS渲染方式采集能力，原生新提供 "SeleniumPhantomjsPageLoader"，支持以 "selenisum + phantomjs" 方式采集页面数据；
 - 4、支持采集非Web页面，如JSON接口等，直接输出响应数据；选择 "NonPageParser" 即可；
 
+### 版本 V1.3.0，新特性[迭代中]
+- 1、[ING]增强JS渲染采集能力，原生提供 "selenium chrome headless" 方案实现，并提供开箱即用的 PageLoader ；
+- 2、[ING]进一步优化 selenium 特性兼容问题；
+
 
 ### TODO LIST
 - 1、扩展SelectType；
@@ -306,4 +310,4 @@ public abstract int getUrlNum(); | 获取待采集URL数量；
 
 ---
 ### 捐赠
-无论金额多少都足够表达您这份心意，非常感谢 ：）      [前往捐赠](http://www.xuxueli.com/page/donate.html )
+无论金额多少都足够表达您这份心意，非常感谢 ：）      [前往捐赠](https://www.xuxueli.com/page/donate.html )

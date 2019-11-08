@@ -108,12 +108,10 @@ public class JsoupUtil {
 
             conn.ignoreContentType(true);
             conn.method(pageRequest.isIfPost()?Connection.Method.POST:Connection.Method.GET);
+
             // 发出请求
             Connection.Response resp = conn.execute();
-//            System.out.println(resp.statusCode());
-//            System.out.println(resp.statusMessage());
             String pageSource = resp.body();
-//            System.out.println(pageSource.length());
             return pageSource;
         } catch (IOException e) {
             logger.error(e.getMessage(), e);
@@ -204,9 +202,4 @@ public class JsoupUtil {
         return images;
     }
 
-    public static void main(String[] args) {
-    	PageRequest r = new PageRequest();
-    	r.setUrl("http://xxgk.sdein.gov.cn/xxgkml/hbzfjc/");
-    	System.out.println(loadPageSource(r));
-    }
 }

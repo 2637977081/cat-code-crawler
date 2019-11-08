@@ -21,10 +21,6 @@ public abstract class PageParser<T> {
     public void preParse(PageRequest pageRequest) {
         // TODO
     }
-    
-    public void preParse(PageRequest pageRequest, String extemplate) {
-        // TODO
-    }
 
     /**
      * parse pageVo
