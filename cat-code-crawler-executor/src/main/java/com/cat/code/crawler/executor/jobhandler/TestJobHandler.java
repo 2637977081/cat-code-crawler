@@ -53,7 +53,8 @@ public class TestJobHandler extends IJobHandler {
         // 构造爬虫
         XxlCrawler crawler = new XxlCrawler.Builder()
 //                .setUrls("https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gb18030&word=%B0%D9%B6%C8%CD%BC%C6%AC%C3%C0%C5%AE&fr=ala&ala=1&alatpl=adress&pos=0&hs=2&xthttps=111111")
-                .setUrls("https://www.bbilibili.com/")
+                .setUrls("https://cn.bing.com/images/search?q=%E7%BE%8E%E5%A5%B3&qs=n&form=QBIR&sp=-1&pq=%E7%BE%8E%E5%A5%B3&sc=0-2&sk=&cvid=4F7A6D85A76F400D9753A426DC999C89")
+//                .setUrls("https://www.bbilibili.com/")
 //                .setUrls("https://www.pzhan.com/")
                 .setAllowSpread(true)
                 .setHeaderMap(headerMap)

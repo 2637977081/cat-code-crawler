@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,8 +21,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * @Author: lvgang
@@ -37,6 +43,10 @@ public class JobHandlerTest {
 
     @Autowired
     private TestJobHandler testJobHandler;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     @Test
     public void jobHandlerTest() throws Exception{
@@ -88,5 +98,17 @@ public class JobHandlerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void setRestTemplateTest() throws Exception{
+        String url = "";
+        List<String> list =  org.apache.commons.io.FileUtils.readLines(new File("C:\\Users\\dell\\Desktop\\新建文本文档.txt"),"UTF-8");
+        for (String name:list){
+            String link = url.replace("#[name]",name);
+            ResponseEntity<String> responseEntity = restTemplate.getForEntity(link,String.class);
+            System.out.println(responseEntity.getStatusCodeValue());
+        }
+
     }
 }
